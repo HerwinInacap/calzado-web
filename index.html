@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AURUM — Calzado de lujo artesanal. Descubre nuestra colección exclusiva de zapatos diseñados para quienes valoran la elegancia y el confort." />
+  <meta name="theme-color" content="#0a0804" />
+  <title>AURUM | Calzado de Lujo</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========== CSS VARIABLES ========== */
+    :root {
+      --gold:       #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dim:   #7a5f2a;
+      --black:      #0a0804;
+      --dark:       #111009;
+      --card-bg:    #161410;
+      --border:     rgba(201,168,76,0.22);
+      --text:       #e8e2d4;
+      --text-muted: #7a7260;
+      --white:      #f5f0e8;
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'Jost', sans-serif;
+      --radius:     4px;
+      --trans:      0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Skip link for a11y */
+    .skip-link {
+      position: absolute;
+      top: -9999px;
+      left: 1rem;
+      background: var(--gold);
+      color: var(--black);
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      z-index: 9999;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-family: var(--ff-body);
+    }
+    .skip-link:focus { top: 1rem; }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ========== FOCUS VISIBLE (a11y) ========== */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ========== UTILITY ========== */
+    .container {
+      width: min(1200px, 92vw);
+      margin-inline: auto;
+    }
+
+    .section-label {
+      font-family: var(--ff-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    /* ========== GRAIN OVERLAY ========== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.25rem 0;
+      transition: background var(--trans), padding var(--trans), box-shadow var(--trans);
+    }
+
+    .navbar.scrolled {
+      background: rgba(10,8,4,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.85rem 0;
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      transition: color var(--trans);
+    }
+    .nav-logo:hover { color: var(--gold-light); }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      position: relative;
+      padding-bottom: 2px;
+      transition: color var(--trans);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width var(--trans);
+    }
+
+    .nav-link:hover,
+    .nav-link[aria-current="page"] {
+      color: var(--gold);
+    }
+    .nav-link:hover::after,
+    .nav-link[aria-current="page"]::after { width: 100%; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--text);
+      transition: transform var(--trans), opacity var(--trans);
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ========== HERO / HOME ========== */
+    #home {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0804 0%, #110e08 60%, #0a0804 100%);
+    }
+
+    /* Decorative lines */
+    .hero-bg::before,
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-ring 6s ease-in-out infinite;
+    }
+    .hero-bg::before { width: 600px; height: 600px; }
+    .hero-bg::after  { width: 900px; height: 900px; animation-delay: 3s; }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.15; transform: translate(-50%,-50%) scale(1); }
+      50%       { opacity: 0.05; transform: translate(-50%,-50%) scale(1.04); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      animation: fade-up 1s ease both;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      animation: fade-up 1s ease 0.2s both;
+    }
+
+    .hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(4rem, 12vw, 9rem);
+      font-weight: 300;
+      line-height: 0.9;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      animation: fade-up 1s ease 0.35s both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 300;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--text-muted);
+      max-width: 42ch;
+      line-height: 1.7;
+      animation: fade-up 1s ease 0.5s both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      padding: 0.9rem 2.25rem;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--ff-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: background var(--trans), transform var(--trans), box-shadow var(--trans);
+      animation: fade-up 1s ease 0.65s both;
+    }
+    .hero-cta:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+    }
+    .hero-cta svg { width: 14px; height: 14px; }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: fade-up 1s ease 1s both;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+      animation: scroll-line 1.8s ease-in-out infinite;
+    }
+    @keyframes scroll-line {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ========== SECTION WRAPPER ========== */
+    .section {
+      padding: 7rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.25rem auto 0;
+    }
+
+    /* ========== OFFERS SECTION ========== */
+    #ofertas {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .offer-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.25rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+    }
+
+    .offer-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(201,168,76,0.12);
+    }
+
+    .offer-card--featured {
+      border-color: var(--gold-dim);
+      background: linear-gradient(160deg, #1c1810 0%, var(--card-bg) 100%);
+    }
+
+    .offer-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.65rem;
+      border-radius: 2px;
+    }
+
+    .offer-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .offer-img-wrap {
+      width: 100%;
+      height: 160px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .offer-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--trans);
+    }
+    .offer-card:hover .offer-img-wrap img { transform: scale(1.05); }
+
+    .offer-title {
+      font-family: var(--ff-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    .offer-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .offer-pricing {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .offer-original {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .offer-price {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .offer-discount {
+      font-size: 0.72rem;
+      color: #5cb85c;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .offer-btn {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      transition: background var(--trans), color var(--trans);
+    }
+    .offer-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+
+    /* ========== GALLERY SECTION ========== */
+    #galeria { background: var(--black); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 6px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 7; grid-row: span 2; }
+    .gallery-item:nth-child(2) { grid-column: span 5; }
+    .gallery-item:nth-child(3) { grid-column: span 5; }
+    .gallery-item:nth-child(4) { grid-column: span 6; }
+    .gallery-item:nth-child(5) { grid-column: span 6; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+      min-height: 220px;
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,8,4,0.8) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--trans);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-caption {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,8,4,0.95);
+      z-index: 8000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: color var(--trans), border-color var(--trans);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-close:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ========== BRAND STRIP ========== */
+    .brand-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 0;
+      overflow: hidden;
+    }
+
+    .brand-track {
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .brand-item {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+    .brand-item::after {
+      content: '✦';
+      font-size: 0.5rem;
+      color: var(--gold);
+    }
+
+    /* ========== FOOTER ========== */
+    #contacto {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    footer {
+      padding: 5rem 0 2.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-brand-col {}
+
+    .footer-logo {
+      font-family: var(--ff-display);
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 28ch;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+
+    .social-link {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color var(--trans), border-color var(--trans), background var(--trans);
+    }
+    .social-link:hover {
+      color: var(--black);
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .footer-col-title {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      transition: color var(--trans), padding-left var(--trans);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .footer-link:hover { color: var(--gold); padding-left: 4px; }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .contact-icon {
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 0.9rem;
+    }
+
+    .contact-item a {
+      color: var(--text-muted);
+      transition: color var(--trans);
+    }
+    .contact-item a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-top: 2rem;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-legal a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      transition: color var(--trans);
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ========== BACK TO TOP ========== */
+    .back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--trans), transform var(--trans), background var(--trans);
+      z-index: 500;
+    }
+    .back-top.visible { opacity: 1; transform: translateY(0); }
+    .back-top:hover { background: var(--gold-light); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .offers-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 260px;
+        height: 100svh;
+        background: rgba(10,8,4,0.98);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 4rem 2rem;
+        gap: 2rem;
+        border-left: 1px solid var(--border);
+        transition: right var(--trans);
+      }
+      .nav-menu.open { right: 0; }
+      .nav-link { font-size: 0.85rem; }
+      .nav-toggle { display: flex; }
+
+      .offers-grid {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+        margin-inline: auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .gallery-item:nth-child(2) { grid-column: span 1; }
+      .gallery-item:nth-child(3) { grid-column: span 1; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .gallery-item:nth-child(5) { grid-column: span 1; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ========== REDUCED MOTION ========== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .hero-bg::before, .hero-bg::after { animation: none; }
+      .brand-track { animation: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip to main content (a11y) -->
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+  <!-- ===== NAVBAR ===== -->
+  <header role="banner">
+    <nav class="navbar" id="navbar" aria-label="Menú principal">
+      <div class="container nav-inner">
+        <a class="nav-logo" href="#home" aria-label="AURUM — Inicio">AURUM</a>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-expanded="false"
+          aria-controls="navMenu"
+          aria-label="Abrir menú de navegación"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu" role="list">
+          <li><a class="nav-link" href="#home"     aria-current="page">Inicio</a></li>
+          <li><a class="nav-link" href="#ofertas"             >Ofertas</a></li>
+          <li><a class="nav-link" href="#galeria"             >Galería</a></li>
+          <li><a class="nav-link" href="#contacto"            >Contacto</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main id="main-content">
+
+    <!-- HOME -->
+    <section id="home" aria-label="Bienvenida">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-content container">
+        <span class="hero-eyebrow">Colección 2025 — Artesanía & Lujo</span>
+        <h1 class="hero-title">
+          El Arte<br>de <em>Caminar</em>
+        </h1>
+        <p class="hero-subtitle">
+          Calzado artesanal de edición limitada, diseñado para quienes entienden que cada paso es una declaración de estilo.
+        </p>
+        <a class="hero-cta" href="#ofertas">
+          Ver Colección
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero-scroll" aria-hidden="true">
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- BRAND STRIP -->
+    <div class="brand-strip" aria-hidden="true">
+      <div class="brand-track">
+        <span class="brand-item">Artesanal</span>
+        <span class="brand-item">Edición Limitada</span>
+        <span class="brand-item">Premium Leather</span>
+        <span class="brand-item">Diseño Exclusivo</span>
+        <span class="brand-item">Hecho a Mano</span>
+        <span class="brand-item">Lujo Accesible</span>
+        <!-- Duplicado para efecto continuo -->
+        <span class="brand-item">Artesanal</span>
+        <span class="brand-item">Edición Limitada</span>
+        <span class="brand-item">Premium Leather</span>
+        <span class="brand-item">Diseño Exclusivo</span>
+        <span class="brand-item">Hecho a Mano</span>
+        <span class="brand-item">Lujo Accesible</span>
+      </div>
+    </div>
+
+    <!-- OFERTAS -->
+    <section id="ofertas" class="section" aria-labelledby="ofertas-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Temporada Actual</span>
+          <h2 class="section-title" id="ofertas-title">Ofertas Exclusivas</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="offers-grid" role="list" aria-label="Lista de ofertas">
+
+          <!-- Oferta 1 -->
+          <article class="offer-card" role="listitem" aria-label="Oxford Clásico en oferta">
+            <div class="offer-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=600&auto=format&fit=crop&q=80"
+                alt="Zapato Oxford clásico de cuero negro"
+                loading="lazy"
+                width="600" height="400"
+              />
+            </div>
+            <h3 class="offer-title">Oxford Clásico</h3>
+            <p class="offer-desc">Cuero italiano de primera. Plantilla anatómica con suela de goma antideslizante.</p>
+            <div class="offer-pricing">
+              <span class="offer-original" aria-label="Precio original">$189.990</span>
+              <span class="offer-price" aria-label="Precio oferta">$129.990</span>
+              <span class="offer-discount" aria-label="Descuento">▼ 31% OFF</span>
+            </div>
+            <a href="#galeria" class="offer-btn" aria-label="Comprar Oxford Clásico">Ver Modelo</a>
+          </article>
+
+          <!-- Oferta 2 FEATURED -->
+          <article class="offer-card offer-card--featured" role="listitem" aria-label="Derby Dorado — oferta destacada">
+            <span class="offer-badge" aria-label="Más vendido">Más Vendido</span>
+            <div class="offer-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80"
+                alt="Zapatilla deportiva moderna Runner Aurum"
+                loading="lazy"
+                width="600" height="400"
+              />
+            </div>
+            <h3 class="offer-title">Runner Aurum</h3>
+            <p class="offer-desc">Diseño deportivo de alta gama. Tecnología de amortiguación de última generación.</p>
+            <div class="offer-pricing">
+              <span class="offer-original" aria-label="Precio original">$219.990</span>
+              <span class="offer-price" aria-label="Precio oferta">$149.990</span>
+              <span class="offer-discount" aria-label="Descuento">▼ 32% OFF</span>
+            </div>
+            <a href="#galeria" class="offer-btn" aria-label="Comprar Runner Aurum">Ver Modelo</a>
+          </article>
+
+          <!-- Oferta 3 -->
+          <article class="offer-card" role="listitem" aria-label="Mocasín Premium en oferta">
+            <div class="offer-img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=600&auto=format&fit=crop&q=80"
+                alt="Mocasín de cuero marrón clásico"
+                loading="lazy"
+                width="600" height="400"
+              />
+            </div>
+            <h3 class="offer-title">Mocasín Premium</h3>
+            <p class="offer-desc">Cuero suave, sin cordones. El equilibrio perfecto entre elegancia casual y confort.</p>
+            <div class="offer-pricing">
+              <span class="offer-original" aria-label="Precio original">$159.990</span>
+              <span class="offer-price" aria-label="Precio oferta">$99.990</span>
+              <span class="offer-discount" aria-label="Descuento">▼ 38% OFF</span>
+            </div>
+            <a href="#galeria" class="offer-btn" aria-label="Comprar Mocasín Premium">Ver Modelo</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria" class="section" aria-labelledby="galeria-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Colección Visual</span>
+          <h2 class="section-title" id="galeria-title">Nuestra Galería</h2>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="gallery-grid" role="list" aria-label="Galería de imágenes de calzado">
+
+          <figure class="gallery-item" role="listitem" tabindex="0" aria-label="Ver imagen: Botas de cuero vintage" data-src="https://images.unsplash.com/photo-1638247025967-b4e38f787b76?w=1200&auto=format&fit=crop&q=80">
+            <img
+              src="https://images.unsplash.com/photo-1638247025967-b4e38f787b76?w=900&auto=format&fit=crop&q=80"
+              alt="Botas de cuero vintage en tono camel sobre fondo neutro"
+              loading="lazy" width="900" height="600"
+            />
+            <figcaption class="gallery-overlay" aria-hidden="true">
+              <span class="gallery-caption">Botas Vintage</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" role="listitem" tabindex="0" aria-label="Ver imagen: Stiletto de noche" data-src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=900&auto=format&fit=crop&q=80">
+            <img
+              src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80"
+              alt="Zapato stiletto de tacón alto en tono nude sobre superficie blanca"
+              loading="lazy" width="600" height="400"
+            />
+            <figcaption class="gallery-overlay" aria-hidden="true">
+              <span class="gallery-caption">Stiletto de Noche</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" role="listitem" tabindex="0" aria-label="Ver imagen: Sneaker Urban" data-src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=900&auto=format&fit=crop&q=80">
+            <img
+              src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=600&auto=format&fit=crop&q=80"
+              alt="Zapatilla urbana blanca con suela gruesa sobre suelo de concreto"
+              loading="lazy" width="600" height="400"
+            />
+            <figcaption class="gallery-overlay" aria-hidden="true">
+              <span class="gallery-caption">Sneaker Urban</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" role="listitem" tabindex="0" aria-label="Ver imagen: Sandalia Verano" data-src="https://images.unsplash.com/photo-1603487742131-4160ec999306?w=900&auto=format&fit=crop&q=80">
+            <img
+              src="https://images.unsplash.com/photo-1603487742131-4160ec999306?w=700&auto=format&fit=crop&q=80"
+              alt="Sandalia de cuero dorada con correa al tobillo sobre fondo beige"
+              loading="lazy" width="700" height="400"
+            />
+            <figcaption class="gallery-overlay" aria-hidden="true">
+              <span class="gallery-caption">Sandalia Verano</span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item" role="listitem" tabindex="0" aria-label="Ver imagen: Chelsea Boot" data-src="https://images.unsplash.com/photo-1531310197839-ccf54634509e?w=900&auto=format&fit=crop&q=80">
+            <img
+              src="https://images.unsplash.com/photo-1531310197839-ccf54634509e?w=700&auto=format&fit=crop&q=80"
+              alt="Chelsea boot de cuero negro con elástico lateral sobre piso de madera"
+              loading="lazy" width="700" height="400"
+            />
+            <figcaption class="gallery-overlay" aria-hidden="true">
+              <span class="gallery-caption">Chelsea Boot</span>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar imagen ampliada">✕</button>
+    <img src="" alt="" id="lightboxImg" />
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="contacto" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div class="footer-brand-col">
+          <span class="footer-logo" aria-label="AURUM">AURUM</span>
+          <p class="footer-tagline">
+            Crafting soles with purpose since 2019. Calzado de lujo que fusiona tradición artesanal con diseño contemporáneo.
+          </p>
+          <nav aria-label="Redes sociales" class="footer-social">
+            <a class="social-link" href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub de AURUM">
+              <!-- GitHub SVG -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </a>
+            <a class="social-link" href="#" aria-label="Instagram de AURUM" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a class="social-link" href="#" aria-label="WhatsApp de AURUM" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.556 4.112 1.528 5.837L.057 23.571a.5.5 0 0 0 .615.613l5.752-1.503A11.937 11.937 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.965 0-3.8-.536-5.372-1.471l-.386-.232-3.997 1.045 1.033-3.886-.248-.4A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+              </svg>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Links de interés -->
+        <nav aria-label="Secciones del sitio">
+          <h3 class="footer-col-title">Navegación</h3>
+          <ul class="footer-links" role="list">
+            <li><a class="footer-link" href="#home">→ Inicio</a></li>
+            <li><a class="footer-link" href="#ofertas">→ Ofertas</a></li>
+            <li><a class="footer-link" href="#galeria">→ Galería</a></li>
+            <li><a class="footer-link" href="#contacto">→ Contacto</a></li>
+          </ul>
+        </nav>
+
+        <!-- Links externos -->
+        <nav aria-label="Links de interés externos">
+          <h3 class="footer-col-title">Links de Interés</h3>
+          <ul class="footer-links" role="list">
+            <li>
+              <a class="footer-link" href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="Repositorio GitHub (abre en nueva pestaña)">
+                ↗ GitHub Repositorio
+              </a>
+            </li>
+            <li><a class="footer-link" href="#" target="_blank" rel="noopener noreferrer">↗ Política de Privacidad</a></li>
+            <li><a class="footer-link" href="#" target="_blank" rel="noopener noreferrer">↗ Términos y Condiciones</a></li>
+            <li><a class="footer-link" href="#" target="_blank" rel="noopener noreferrer">↗ Guía de Tallas</a></li>
+            <li><a class="footer-link" href="#" target="_blank" rel="noopener noreferrer">↗ Devoluciones</a></li>
+          </ul>
+        </nav>
+
+        <!-- Contacto -->
+        <address aria-label="Datos de contacto" style="font-style:normal;">
+          <h3 class="footer-col-title">Contacto</h3>
+          <ul class="contact-list" role="list">
+            <li class="contact-item">
+              <span class="contact-icon" aria-hidden="true">📞</span>
+              <div>
+                <strong style="display:block; font-size:0.75rem; color:var(--text); margin-bottom:2px;">Teléfono</strong>
+                <a href="tel:+56912345678" aria-label="Llamar al +56 9 1234 5678">+56 9 1234 5678</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon" aria-hidden="true">✉️</span>
+              <div>
+                <strong style="display:block; font-size:0.75rem; color:var(--text); margin-bottom:2px;">Email</strong>
+                <a href="/cdn-cgi/l/email-protection#f99a96978d989a8d96b9988c8b8c94d79a95" aria-label="Enviar email a contacto@aurum.cl"><span class="__cf_email__" data-cfemail="294a46475d484a5d4669485c5b5c44074a45">[email&#160;protected]</span></a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon" aria-hidden="true">📍</span>
+              <div>
+                <strong style="display:block; font-size:0.75rem; color:var(--text); margin-bottom:2px;">Dirección</strong>
+                <span>Av. Providencia 1234, Oficina 501<br>Santiago, Chile</span>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon" aria-hidden="true">💻</span>
+              <div>
+                <strong style="display:block; font-size:0.75rem; color:var(--text); margin-bottom:2px;">Repositorio</strong>
+                <a href="https://github.com/HerwinInacap/calzado-web" target="_blank" rel="noopener noreferrer" aria-label="Ver repositorio en GitHub (abre en nueva pestaña)">
+                  github.com/tu-usu/aurum
+                </a>
+              </div>
+            </li>
+          </ul>
+        </address>
+
+      </div>
+
+      <!-- Footer bottom -->
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy; <span id="year"></span> AURUM Calzado de Lujo — Todos los derechos reservados.
+        </p>
+        <nav class="footer-legal" aria-label="Legal">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+          <a href="#">Cookies</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" aria-label="Volver al inicio de la página">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ---- Navbar scroll ---- */
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+      updateActiveLink();
+    }, { passive: true });
+
+    /* ---- Mobile menu ---- */
+    const toggle = document.getElementById('navToggle');
+    const menu   = document.getElementById('navMenu');
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('open');
+    });
+
+    /* Close menu on link click */
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('open');
+      });
+    });
+
+    /* ---- Active nav link ---- */
+    const sections = document.querySelectorAll('section[id]');
+
+    function updateActiveLink() {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href').replace('#', '');
+        link.setAttribute('aria-current', href === current ? 'page' : 'false');
+      });
+    }
+    updateActiveLink();
+
+    /* ---- Lightbox ---- */
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxImg   = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    let lastFocused;
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const openLightbox = () => {
+        const src = item.dataset.src;
+        const alt = item.querySelector('img').alt;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightbox.classList.add('active');
+        lastFocused = document.activeElement;
+        lightboxClose.focus();
+        document.body.style.overflow = 'hidden';
+      };
+
+      item.addEventListener('click', openLightbox);
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(); }
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    };
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    /* ---- Back to top ---- */
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ---- Year ---- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ---- Intersection Observer: fade-in on scroll ---- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.offer-card, .gallery-item').forEach((el, i) =
